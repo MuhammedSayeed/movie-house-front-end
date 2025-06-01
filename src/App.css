@@ -1,0 +1,40 @@
+body{
+  background-color: #080110;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0c0714;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #433096;
+  transition: background-color 400ms;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5642b4;
+}
+
+/* Add this to ensure scrollbar works with the layout */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+.fade-bottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 4;
+  max-height: 100%;
+  min-height: 100%;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(37, 26, 76, 0.39) 0%,
+    rgb(37, 26, 76) 73%
+  );
+}
