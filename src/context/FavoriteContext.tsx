@@ -3,6 +3,7 @@ import { IData_show, IErrorResponse } from '@/interfaces';
 import { AxiosError } from 'axios';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
+import useToken from '@/hooks/useToken';
 
 
 interface IFavoriteProviderProps {
@@ -27,19 +28,24 @@ export const FavoriteContext = createContext<IFavoriteContext>({
 export const FavoriteProvider = ({ children }: IFavoriteProviderProps) => {
     const { user } = useContext(AuthContext);
     const [list, setList] = useState<IData_show[] | []>(() => {
-        const StoredList = localStorage.getItem('movie-house-fav-list');
+        const StoredList = localStorage.getItem('list');
         return StoredList ? JSON.parse(StoredList) : [];
     })
     const [isLoading, setLoading] = useState<boolean>(false);
-
+    const { token } = useToken();
 
     const getList = async () => {
+        if (!token) return;
         setLoading(true);
         try {
-            const { data, status } = await axiosInstance.get("/favorites");
+            const { data, status } = await axiosInstance.get("/favorites", {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
 
             if (status === 200) {
-                localStorage.setItem('movie-house-fav-list', JSON.stringify(data.results));
+                localStorage.setItem('list', JSON.stringify(data.results));
                 setList(data.results);
             }
         } catch (error) {
@@ -49,12 +55,10 @@ export const FavoriteProvider = ({ children }: IFavoriteProviderProps) => {
             setLoading(false);
         }
     }
-
     const updateTheList = (newList: IData_show[]) => {
-        localStorage.setItem('movie-house-fav-list', JSON.stringify(newList));
+        localStorage.setItem('list', JSON.stringify(newList));
         setList(newList);
     }
-
     useEffect(() => {
         if (user !== null) {
             getList();
@@ -62,7 +66,7 @@ export const FavoriteProvider = ({ children }: IFavoriteProviderProps) => {
     }, [user])
 
     return (
-        <FavoriteContext.Provider value={{ isLoading, list , updateTheList }}>
+        <FavoriteContext.Provider value={{ isLoading, list, updateTheList }}>
             {children}
         </FavoriteContext.Provider>
     )

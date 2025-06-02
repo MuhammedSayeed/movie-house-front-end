@@ -19,7 +19,7 @@ const LoginForm = () => {
         <div className="w-full space-y-2" key={idx}>
             <label className="block text-white text-sm font-medium text-left" htmlFor={name}>{placeholder}</label>
             <Input className="bg-transparent rounded-lg outline-none border-white/50 text-white font-medium py-5" {...register(name)} placeholder={placeholder} type={type} />
-            {errors[name] && <p className="text-sm text-second">{errors[name].message}</p>}
+            {errors[name] && <p className="text-sm text-second">{errors[name]?.message}</p>}
         </div>
     ))
 
@@ -28,7 +28,7 @@ const LoginForm = () => {
             signin(data).then(() => {
                 setTimeout(() => {
                     window.location.href = "/"
-                }, 1000);
+                }, 500);
             }),
             {
                 loading: "Loading...",

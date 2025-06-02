@@ -1,4 +1,4 @@
-import DeleteAccountModal from "@/components/DeleteAccountModal";
+
 import EditEmailModal from "@/components/EditEmailModal";
 import EditNameModal from "@/components/EditNameModal";
 import EditPasswordModal from "@/components/EditPasswordModal";
@@ -12,7 +12,6 @@ const Profile = () => {
     const [isNameModalOpen, setNameModalOpen] = useState(false);
     const [isEmailModalOpen, setEmailModalOpen] = useState(false);
     const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
-    const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] = useState(false);
 
     interface IUSER_INPUTS {
         label: string;
@@ -72,13 +71,11 @@ const Profile = () => {
                     <div className="w-full space-y-3">
                         {RENDER_INPUTS}
                     </div>
-                    <Button onClick={() => setDeleteAccountModalOpen(true)} size={"sm"} className="text-white bg-second-dark hover:bg-second-extra-dark" >Delete Account</Button>
                 </div>
             </div>
             <EditNameModal isOpen={isNameModalOpen} onClose={() => setNameModalOpen(false)} />
             <EditEmailModal isOpen={isEmailModalOpen} onClose={() => setEmailModalOpen(false)} />
             <EditPasswordModal isOpen={isPasswordModalOpen} onClose={() => setPasswordModalOpen(false)} />
-            <DeleteAccountModal isOpen={isDeleteAccountModalOpen} onClose={() => setDeleteAccountModalOpen(false)} />
         </div>
     )
 }

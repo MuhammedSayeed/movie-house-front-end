@@ -16,7 +16,7 @@ import ProtectedRoutes from "@/components/ProtectedRoutes";
 import Profile from "@/pages/Profile/Page";
 
 
-const userDataString = localStorage.getItem("movie-house-user");
+const userDataString = localStorage.getItem("user");
 const userData = userDataString ? JSON.parse(userDataString) : null;
 
 const router = createBrowserRouter(
